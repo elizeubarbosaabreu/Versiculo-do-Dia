@@ -1,26 +1,48 @@
-import requests
-from bs4 import BeautifulSoup
+
 import PySimpleGUI as sg
+from get_verse import gerar_versiculo
 
+# __     __            _            _                 _         ____  _       
+# \ \   / /__ _ __ ___(_) ___ _   _| | ___  ___    __| | ___   |  _ \(_) __ _ 
+#  \ \ / / _ \ '__/ __| |/ __| | | | |/ _ \/ __|  / _` |/ _ \  | | | | |/ _` |
+#   \ V /  __/ |  \__ \ | (__| |_| | | (_) \__ \ | (_| | (_) | | |_| | | (_| |
+#    \_/ \___|_|  |___/_|\___|\__,_|_|\___/|___/  \__,_|\___/  |____/|_|\__,_|
+#                                                                             
+'''
+Este aplicativo faz requisição no site https://www.bibliaonline.com.br à procura
+um versículo diário e retorna com interface gráfica...
 
-# requisição da url
-url=f"https://www.bibliaonline.com.br/acf"
-page = requests.get(url)
-
-# webscrapping com beautifulsoup4
-soup = BeautifulSoup(page.text, 'html.parser')
-text = soup.find_all('article')[0]
-texto = text.get_text().replace('Compartilhar Criar ImagemBíblias são mais de 150 bíblias disponíveisAlmeida Revista e AtualizadaNova Versão TransformadoraNova Almeida AtualizadaAlmeida Revista e CorrigidaNova Versão InternacionalVersão CatólicaAlmeida Corrigida FielKing James VersionReina ValeraOutras Bíblias', '')\
-.replace('Versículos Diários', '').replace('Compartilhar Criar Imagem', '\n').split('\n')
+Desenvolvido por Elizeu Barbosa Abreu
+'''
 
 
 # pySimpleGUI
 sg.theme('Reddit')
 # Define o Layout/ Conteúdo da Tela
-layout = [[sg.T(texto[0], font=('Arial', 12), size=(40, 2))]]
+layout = [
+    [sg.Stretch(),
+     sg.T('VERSÍCULO DO DIA',
+          font=('Arial', 16)),
+     sg.Stretch()],
+    [sg.HorizontalSeparator()],
+    [sg.Stretch(),
+     sg.Text(gerar_versiculo(),
+             font=('Arial', 12),
+             justification='center',
+             size=(30,10)),
+     sg.Stretch()]
+    ]
 
 # Desenha a tela
-window = sg.Window('Versículo do Dia', layout)
+window = sg.Window('Versículo do Dia',
+                   layout,
+                   margins=(0, 0),
+                   finalize=True,
+                   #keep_on_top=True,
+                   #no_titlebar=True,
+                   grab_anywhere=True,
+                   alpha_channel=0.8,
+                   size=(300, 250))
 
 # Mostra a interação com o usuário em um loop
 while True:

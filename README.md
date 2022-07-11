@@ -20,7 +20,7 @@ git clone https://github.com/elizeubarbosaabreu/Versiculo-do-Dia
 Navegue até o diretório baixado pelo comando anterior:
 
 ~~~
-cd VersiculoDoDia
+cd Versiculo-do-Dia
 ~~~
 
 Agora crie um ambiente de desenvolvimento. Se estiver no Linux ou MAC substitua 'python' por 'python3' no comando abaixo:
